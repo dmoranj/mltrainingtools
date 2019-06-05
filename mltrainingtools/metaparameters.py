@@ -7,12 +7,15 @@ GENERATOR_FUNCTIONS = {
 }
 
 
-def generate_metaparameters(number, definition):
+def generate_metaparameters(number, definition, static=False):
     results = {}
 
     for key, parameter in definition.items():
-        generator_fn = GENERATOR_FUNCTIONS.get(parameter['type'], parameter['default'] * number)
-        results[key] = generator_fn(parameter['base'], parameter['range'], number)
+        if static:
+            results[key] = [parameter['default']] * number
+        else:
+            generator_fn = GENERATOR_FUNCTIONS.get(parameter['type'], [parameter['default']] * number)
+            results[key] = generator_fn(parameter['base'], parameter['range'], number)
 
     return results
 

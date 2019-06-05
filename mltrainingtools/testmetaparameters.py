@@ -41,3 +41,8 @@ class MyTest(unittest.TestCase):
     def test_generate_multiple_numbers(self):
         results = mt.generate_metaparameters(10, SMALL_FLOAT_DEF_1)
         self.assertEqual(len(results['SmallFloat1']), 10)
+
+    def test_static_generation(self):
+        results = mt.generate_metaparameters(15, INTEGER_DEF_1, static=True)
+        self.assertEqual(len(results['Integer1']), 15)
+        self.assertEqual(sum([e == 5 for e in results['Integer1']]), 15)
