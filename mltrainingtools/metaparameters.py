@@ -1,35 +1,18 @@
 import numpy as np
 
 
-def generate_metaparameters(number):
-    base_alpha = 1
-    alpha_range = 5
+GENERATOR_FUNCTIONS = {
+    "smallfloat": lambda base, range, number: list(np.power(10, -(range*np.random.rand(number) + base))),
+    "integer": lambda base, range, number: list(np.floor(base + range*np.random.rand(number)).astype(int))
+}
 
-    base_M = 5
-    range_M = 50
 
-    base_l1 = 0.1
-    l1_range = 1.9
+def generate_metaparameters(number, definition):
+    results = {}
 
-    base_l2 = 0.1
-    l2_range = 1.9
+    for key, parameter in definition.items():
+        generator_fn = GENERATOR_FUNCTIONS.get(parameter['type'], parameter['default'] * number)
+        results[key] = generator_fn(parameter['base'], parameter['range'], number)
 
-    base_coders = 200
-    range_coders = 800
-
-    alpha = list(np.power(10, -(alpha_range*np.random.rand(number) + base_alpha)))
-    l1 = list(np.power(10, -(l1_range*np.random.rand(number) + base_l1)))
-    l2 = list(np.power(10, -(l2_range*np.random.rand(number) + base_l2)))
-    M = list(np.floor(base_M + range_M*np.random.rand(number)).astype(int))
-    h_encoder = list(np.floor(base_coders + range_coders*np.random.rand(number)).astype(int))
-    h_decoder = list(np.floor(base_coders + range_coders*np.random.rand(number)).astype(int))
-
-    return [{
-            "alpha": alpha[i],
-            "M": M[i],
-            "L2": l2[i],
-            "L1": l1[i],
-            "H_encoder": h_encoder[i],
-            "H_decoder": h_decoder[i]}
-            for i in range(number)]
+    return results
 
