@@ -7,6 +7,20 @@ GENERATOR_FUNCTIONS = {
 }
 
 
+def to_list(metaparameters):
+    result = []
+    L = len(metaparameters[list(metaparameters.keys())[0]])
+
+    for i in range(L):
+        parameter = {}
+        for key in metaparameters.keys():
+            parameter[key] = metaparameters[key][i]
+
+        result.append(parameter)
+
+    return result
+
+
 def generate_metaparameters(number, definition, static=False):
     results = {}
 

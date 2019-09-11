@@ -46,3 +46,9 @@ class MyTest(unittest.TestCase):
         results = mt.generate_metaparameters(15, INTEGER_DEF_1, static=True)
         self.assertEqual(len(results['Integer1']), 15)
         self.assertEqual(sum([e == 5 for e in results['Integer1']]), 15)
+
+    def test_to_list(self):
+        results = mt.generate_metaparameters(15, INTEGER_DEF_1, static=True)
+        result_list = mt.to_list(results)
+        self.assertEqual(len(result_list), 15)
+        self.assertEqual(list(result_list[0].keys())[0], 'Integer1')
