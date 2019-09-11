@@ -39,24 +39,24 @@ The definition of each parameter **must** contain the following fields:
 * *base*: base value for the parameter, all the parameters randomly drawn will be higher than this number.
 * *range*: range of variation of the parameters. All the parameters will fall in the interval *(base, base + range)*
 * *type*: a string indicating the parameter type. There are currently two types of supported parameters:
-    * *'integer'*: integer parameters will be drawn uniformily from the selected interval.
-    * *''smallfloat'*: random draws for small float parameters are drawn from exponentially from the interval *(10^(-base - range), 10^(-base))* 
+    * *integer*: integer parameters will be drawn uniformily from the selected interval.
+    * *smallfloat*: random draws for small float parameters are drawn from exponentially from the interval *(10^(-base - range), 10^(-base))* 
       This parameters are meant to be used in small values that need logarithmic search (e.g.: the learning rate).
 * *default*: all parameters can be provided with a default value. This value is used to force particular values of the
   metaparameters using the *static* parameter of the function (e.g.: for debugging purposes).
   
 The following excerpt show an example of a valid metaparameter definition:
 
-```
+```text
 INTEGER_DEF_1 = {
-    'Integer1':
+  'Integer1':
         {
             'base': 10,
             'range': 90,
             'default': 5,
             'type': 'integer'
         },
-   'SmallFloat1':
+  'SmallFloat1':
        {
            'base': 1,
            'range': 4,
@@ -68,7 +68,7 @@ INTEGER_DEF_1 = {
 
 ## cmdlogging
 
-This module contains some simple logging utilitis for command line experiments.
+This module contains some simple logging utilities for command line experiments.
 
 ### section_logger(level=0)
 
@@ -96,3 +96,4 @@ python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 ```
 
 The package should now be ready to be imported (or updated).
+

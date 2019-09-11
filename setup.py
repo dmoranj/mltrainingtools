@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mltrainingtools_dmoranj",
-    version="0.0.3",
+    version="0.0.4",
     author="Daniel Morán Jiménez",
     author_email="dmoranj@gmail.com",
     description="Package containing some utilities for Machine Learning projects",
