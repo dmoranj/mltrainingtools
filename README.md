@@ -2,6 +2,28 @@
 
 This project will contain the utility functions I'll be creating for PyTorch ML projects.
 
+# Installation
+
+This module is still in development, and thus it has been installed in the PyPy test
+repository. It can be locally installed with the following command:
+
+```bash
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps mltrainingtools-dmoranj
+```
+
+
+Once installed locally, it can be imported as usual with:
+
+```python
+import mltrainingtools
+```
+
+# Modules
+
+## cvutils
+
+## cnnutils
+
 ## metaparameters
 
 This module contains some functions to deal with metaparameter search scenarios.
@@ -54,3 +76,23 @@ This function generates a logger that can be invoke to output text to the consol
 from the creation of the logger along with the provided text. The logs are structured in a hierarchycal way (the *level*
 of the hierarchy can be passed as a parameter). The logger will add different indentations and line indicators for each
 different level.
+
+
+# Publishing
+
+The module can be published as a regular PIP package, using the following commands:
+
+* From the directory where the `setup.py` is located, execute the following command to generate
+  the binary artifacts under `dist/`:
+
+```bash
+python3 setup.py sdist bdist_wheel
+```
+
+* From the root directory, execute the following command to upload a new version:
+
+```bash
+python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
+The package should now be ready to be imported (or updated).
