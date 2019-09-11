@@ -7,10 +7,9 @@ This project will contain the utility functions I'll be creating for PyTorch ML 
 This module is still in development, and thus it has been installed in the PyPy test
 repository. It can be locally installed with the following command:
 
-```bash
+```bash 
 python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps mltrainingtools-dmoranj
 ```
-
 
 Once installed locally, it can be imported as usual with:
 
@@ -22,7 +21,40 @@ import mltrainingtools
 
 ## cvutils
 
-## cnnutils
+This module contains some utilities related mainly with Computer Vision problems.
+
+### IoU(x, y, h, w, x_h, y_h, h_h, w_h))
+
+Computes the Intersection over Union of the two rectangles given as parameters. Rectangles are expressed as
+tuples of four numbers: (x, y) representing the top left corner of the rectangle and (h, w) representing the
+height and width of the rectangle. IoU operation is simmetric (the order of the rectangles doesn't change the
+end result).
+
+## dnnutils
+
+### load_pretrained(num_classes, backbone, finetune=False, remove_linear=True, finetune_skipping=None)
+
+Loads and initializes a pretrained CNN model for feature extraction with the output size given by `num_classes`, with 
+the selected  backbone. Currently available backbones are: "RESNET101" and "VGG16". By default, all layers are freezed
+and won't be finetuned during training. This behavior can be overriden using the `finetune` flag: setting this flag to 
+true will allow finetuninng of all layers above the Nth (where N depends on the backend, and can be overriden with the
+`finetune_skipping` parameter).
+
+For those models using Fully Connected layers for classification, those layers can be removed and substituted by an
+AveragePooling layer using the `remove_linear` flag. 
+
+This function returns two values: the input size required for the feature
+
+### create_lr_policy(milestones, multipliers)
+
+Creates a Learning Rate Policy function that produces a learning rate multiplier based on a sequence of epoch number
+milestones. This function can be used along with PyTorch's LambdaLR scheduler to create a learning rate schedule.
+
+The following excerpt shows an example of schedule creation:
+
+```python
+scheduler = LambdaLR(optimizer, lr_lambda=create_lr_policy([10, 50, 80], multipliers=[1, 10, 1, 0.1]))
+```
 
 ## metaparameters
 
